@@ -1,39 +1,47 @@
 def cmp(x, y):
-     
-    while len(x) > len(y):
-        if y[0] == 1:     
-            y.insert(1, 0)
-        else:
-            y.insert(1, 9)
-
-    while len(y) > len(x):
-        if x[0] == -1:     
-            x.insert(1, 0)
-        else:
-            x.insert(1, 9)
     
-    different = False
-    output = 0
-    whileCounter = 1
-
-    while different == False:
-        if x[whileCounter] > y[whileCounter]:
-            different = True
-            if x[0] == -1 and y[0] == -1:
-                output = -1
-            else:    
+    if x == y:
+        output = 0
+    elif x[0] > y[0]:
+        output = 1
+    elif x[0] < y[0]:
+        output = -1
+    else:
+        if len(x) > len(y):
+            if x[0] == 1:
                 output = 1
-        elif x[whileCounter] < y[whileCounter]:
-            different = True
-            if x[0] == -1 and y[0] == -1:
-                output = 1
-            else:    
+            else:
                 output = -1
+        elif len(x) < len(y):
+            if x[0] == 1:
+                output = -1
+            else:
+                output = 1
         else:
-            whileCounter = whileCounter + 1
-            if whileCounter > len(x)-1 or whileCounter > len(y)-1:
-                output = 0 
-                break
+            
+            different = False
+            output = 0
+            whileCounter = 1
+
+            while different == False:
+
+                if x[whileCounter] > y[whileCounter]:
+                    different = True
+                    if x[0] == -1 and y[0] == -1:
+                        output = -1
+                    else:    
+                        output = 1
+                elif x[whileCounter] < y[whileCounter]:
+                    different = True
+                    if x[0] == -1 and y[0] == -1:
+                        output = 1
+                    else:    
+                        output = -1
+                else:
+                    whileCounter = whileCounter + 1
+                    if whileCounter > len(x)-1 or whileCounter > len(y)-1:
+                        output = 0 
+                        break
 
     return(output)
 
