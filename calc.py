@@ -1,8 +1,6 @@
 def cmp(x, y):
     
-    if x == y:
-        output = 0
-    elif x[0] > y[0]:
+    if x[0] > y[0]:
         output = 1
     elif x[0] < y[0]:
         output = -1
@@ -45,28 +43,28 @@ def cmp(x, y):
 
     return(output)
 
-
-
-
-
-def plus(x, y):
+def add(x, y):
 
     outputString = []
     carryOnNum = 0
     whileCounter = 1
 
     if x[0] == -1 and y[0] == 1:
-        outputString = minus(y, x)
+        x[0] = 1
+        outputString = sub(y, x)
 
     elif x[0] == -1 and y[0] == -1:
-        outputString = minus(x, y)
+        x[0] = 1
+        y[0] = 1
+        outputString = add(x, y)
+        outputString[0] = -1
     
     elif x[0] == 1 and y[0] == -1:
         y[0] = 1
-        outputString = minus(x, y)
+        outputString = sub(x, y)
 
     else: 
-        outputString[0] = 1
+        outputString.insert(0,1)
 
         while len(x) > len(y):
             y.insert(1, 0)
@@ -74,49 +72,26 @@ def plus(x, y):
         while len(y) > len(x):
             x.insert(1, 0)
         
-        while (len(x) - whileCounter) >= 0: 
+        while ((len(x)-1) - whileCounter) >= 0: 
 
             digit = x[len(x)-whileCounter] + y[len(y)-whileCounter] + carryOnNum
             if digit > 9:
                 carryOnNum = int((digit - digit % 10)/10)
                 digit = digit % 10
-                if carryOnNum > 0:
-                    x.insert(1, 0)
-                    y.insert(1, 0)
-                outputString.insert(0, digit)
+                outputString.insert(1, digit)
             
             else:
-                outputString.insert(0, digit)
+                outputString.insert(1, digit)
                 carryOnNum = 0
 
             whileCounter = whileCounter + 1
 
-    
+        if carryOnNum > 0:
+            outputString.insert(1,carryOnNum)
 
     return outputString
     
-#print(plus([2,2], [9]))
-#print(plus([1], [9,2]))
-#print(plus([1], [9,2,5]))
-#print(plus([1], [9,2,5,6]))
-#print(plus([1], [9,2,5,2,4]))
-#print(plus([1], [1]))
-#print(plus([3,4], [1]))
-#print(plus([9,9,9], [1]))
-#print(plus([1,9,2,4], [1]))
-#print(plus([1,3,4,5,7], [1]))
-#print(plus([9,1,2,3,5,5], [9]))
-#print(plus([9,2], [9,2]))
-#print(plus([9,2,5], [9,2,5]))
-#print(plus([9,9,9,9], [9,2,5,6]))
-#print(plus([1,1,2,3,4], [9,2,5,2,4]))
-
-
-
-
-
-
-def minus(x, y):
+def sub(x, y):
 
     outputString = []
     carryOnNum = 0
@@ -124,49 +99,57 @@ def minus(x, y):
 
     if x[0] == 1 and y[0] == -1:
         y[0] = 1
-        outputString = plus(x, y)
+        outputString = add(x, y)
 
-    if x[0] == -1 and y[0] == -1:
-        y[0] = 1
-        outputString = minus(y, x)
-
-    if x[0] == -1 and y[0] == 1:
+    elif x[0] == -1 and y[0] == -1:
         x[0] = 1
-        outputString = plus(x, y)
+        y[0] = 1
+        outputString = sub(y, x)
+        
+
+    elif x[0] == -1 and y[0] == 1:
+        x[0] = 1
+        outputString = add(y, x)
         outputString[0] = -1
 
     else:
+        outputString.insert(0, 1)
         if cmp(x, y) == -1:
-            outputString = minus(y, x)
+            outputString = sub(y, x)
             outputString[0] = -1
+        else:
+            while len(x) > len(y):
+                y.insert(1, 0)
 
-        while len(x) > len(y):
-            y.insert(1, 0)
+            while len(y) > len(x):
+                x.insert(1, 0)
 
-        while len(y) > len(x):
-            x.insert(1, 0)
-
-        while (len(x) - whileCounter) >= 0: 
+            while ((len(x)-1) - whileCounter) >= 0: 
+                
+                digit = x[len(x)-whileCounter] - y[len(y)-whileCounter] - carryOnNum
             
-            digit = x[len(x)-whileCounter] - y[len(y)-whileCounter] - carryOnNum
-          
-            if digit < 0:
-                carryOnNum = 1
-                outputString.insert(1, digit*(-1))          
+                if digit < 0:
+                    carryOnNum = 1
+                    outputString.insert(1, digit+10)       
 
-            else:
-                carryOnNum = 0
-                outputString.insert(0, digit)
-
-            whileCounter = whileCounter + 1
-
-
+                else:
+                    carryOnNum = 0
+                    if ((len(x)-1) - whileCounter) == 0 and x[1] == y[1]:
+                        if len(x) == 2:
+                            outputString.insert(1, 0)
+                        break
+                    else:
+                        outputString.insert(1, digit)
+                
+                whileCounter = whileCounter + 1
 
     return(outputString)
 
 
-#print(minus([9,2], [9,4]))
-#print(minus([1], [9]))
+
+#print(sub([1,9,2], [1,9,4]))
+#print(sub([-1,9],[1,9]))
+print(sub([-1,2],[-1,9]))
 #print(minus([2], [9,2]))
 #print(minus([3], [9,2,5]))
 #print(minus([4], [9,2,5,6]))
