@@ -124,21 +124,9 @@ x = sub([1,9,2],[-1,3]);                    assert x == [1,9,5],x
 x = sub([1,9,1,5],[-1,4]);                  assert x == [1,9,1,9],x   
 x = sub([1,9,2,6,9],[-1,5]);                assert x == [1,9,2,7,4],x
 
-#print(minus([2], [9,2]))
-#print(minus([3], [9,2,5]))
-#print(minus([4], [9,2,5,6]))
-#print(minus([5], [9,2,5,2,4]))
-#print(minus([1], [1]))
-#print(minus([3,4], [1]))
-#print(minus([9,9,9], [1]))
-#print(minus([1,9,2,4], [1]))
-#print(minus([1,3,4,5,7], [1]))
-#print(minus([9,1,2,3,5,5], [9]))
-#print(minus([9,2], [9,2]))
-#print(minus([9,2,5], [9,2,5]))
-#print(minus([9,9,9,9], [9,2,5,6]))
-#print(minus([1,1,2,3,4], [9,2,5,2,4]))
-
-#print(minus(['-',1,1,2,3,4], [9,2,5,2,4]))
+a = [1,1,2,3]
+b = [-1,2,3,4]
+x = sub(a,b)
+print(a,b)
 
 assert 1==0, "all Tests passed"
