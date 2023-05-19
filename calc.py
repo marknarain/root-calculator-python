@@ -113,11 +113,84 @@ def add(x, y):
 
 def sub(x,y):
     y[0] = y[0]*(-1)
-    return(add(x,y))
+    res = add(x,y)
+    y[0] = y[0]*(-1)
+    return(res)
 
 def mul(x, y):
      
-    output = []
     carryOnNum = 0
-    x = 1
+    whileCounter1 = 1
+    whileCounter2 = 1    
+    output = [1,0]
+    mullAdd = [1]
 
+    if len(x) == 2 and len(y) > len(x):
+        output = mul(y,x)
+    
+    else:
+
+        while ((len(y)-1) - whileCounter1) >= 0:
+
+            while ((len(x)-1) - whileCounter2) >= 0:
+                digit = y[1] * x[len(x)-whileCounter2] + carryOnNum
+                carryOnNum = int(digit/10)
+                mullAdd.insert(1,digit%10)
+                whileCounter2 = whileCounter2 + 1
+
+            output = add(output,mullAdd)
+            if ((len(y)-1) - whileCounter1) != 0:
+                output.append(0)
+            
+
+            if ((len(y)-1) - whileCounter1) <= 0:
+                output.insert(1,carryOnNum)
+                break
+               
+            whileCounter1 = whileCounter1 + 1
+
+        if x[0] != y[0]:
+            output[0] = -1
+    
+    return(output)
+
+def div(x,y):
+    if y == [1,1,0]:
+        x.pop(1)
+        output = x 
+    elif y == [1,1,0,0]:
+        x.pop(1)
+        x.pop(1)
+        output = x
+    else:
+        assert output == "Not yet Avalible"
+
+    return(output)
+
+def cnv(x):
+    positiveX = x
+    if x < 0:
+        positiveX = positiveX * (-1)
+
+    output = [int(i) for i in str(positiveX)]
+    if x >= 0:
+        output.insert(0,1)
+    else:
+        output.insert(0,-1)
+
+    return(output)
+
+def stringCnv(x):
+    whileCounter = 1
+    output = ""
+    if x[0] == -1:
+            x.pop(0)
+            output = output + "-"
+    else:
+        x.pop(0)
+
+    while len(x) - whileCounter >= 0:
+        output = output + str(x[whileCounter-1])
+        whileCounter = whileCounter +1
+
+    return(output)
