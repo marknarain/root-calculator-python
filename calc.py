@@ -156,14 +156,17 @@ def mul(x, y):
 
 def div(x,y):
     if y == [1,1,0]:
-        x.pop(1)
+        x.pop()
         output = x 
     elif y == [1,1,0,0]:
-        x.pop(1)
-        x.pop(1)
+        x.pop()
+        x.pop()
         output = x
     else:
-        assert output == "Not yet Avalible"
+        assert False , "Not yet Avalible"
+
+    if output == [1]:
+        output.insert(1,0)
 
     return(output)
 
