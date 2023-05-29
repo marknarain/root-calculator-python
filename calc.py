@@ -109,6 +109,13 @@ def add(x, y):
     if output == [-1,0]:
         output[0] = 1
 
+    elif output == [1]:
+        output.append(0)
+
+    if len(output) > 2:
+        while output[1] == 0 and len(output) > 2:
+            output.pop(1)
+
     return output
 
 def sub(x,y):
@@ -127,6 +134,11 @@ def mul(x, y):
 
     if len(x) == 2 and len(y) > len(x):
         output = mul(y,x)
+
+    elif y[len(y)-1] == 0:
+        y.pop()
+        output = mul(x,y)
+        output.append(0)
     
     else:
 
@@ -137,11 +149,14 @@ def mul(x, y):
                 carryOnNum = int(digit/10)
                 mullAdd.insert(1,digit%10)
                 whileCounter2 = whileCounter2 + 1
+            
 
             output = add(output,mullAdd)
-            if ((len(y)-1) - whileCounter1) != 0:
-                output.append(0)
-            
+            while len(output) < len(mullAdd):
+                output.insert(1,0)
+
+            #if ((len(y)-1) - whileCounter1) != 0:
+            #    output.append(0)
 
             if ((len(y)-1) - whileCounter1) <= 0:
                 output.insert(1,carryOnNum)
@@ -152,6 +167,10 @@ def mul(x, y):
         if x[0] != y[0]:
             output[0] = -1
     
+    if len(output) > 2:
+        while output[1] == 0 and len(output) > 2:
+            output.pop(1)
+
     return(output)
 
 def div(x,y):
@@ -171,7 +190,9 @@ def div(x,y):
     return(output)
 
 def cnv(x):
+    x = int(x)
     positiveX = x
+
     if x < 0:
         positiveX = positiveX * (-1)
 
@@ -197,3 +218,12 @@ def stringCnv(x):
         whileCounter = whileCounter +1
 
     return(output)
+
+def arrayToInt(x):
+
+    output = 0
+
+    for i in x[1:]:
+        output = output*10+i
+
+    return output*x[0]

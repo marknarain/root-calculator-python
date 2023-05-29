@@ -1,4 +1,5 @@
 import math
+from calc import *
 
 # Splits the entered number into pairs of two digits.
 # x = 1234 --> [12, 34]
@@ -46,20 +47,31 @@ def firstStepSquareMinus(x, y):
 
 def rootDigitCalculator(x, y):
 
-    b = x / (20*y)
-    
-    while (20*y*int(math.floor(b)) + int(math.floor(b))*int(math.floor(b))) > x:
-        b = b - 1
+    #print(x)
 
-    return (int(b))
+    b = int(x / (20*y))
+    
+    x2 = cnv(x)
+    y2 = cnv(y)
+    b2 = cnv(b)
+
+    while cmp(add((mul(mul(y2,b2),cnv(20))),mul(b2,b2)),x2) == 1:
+        b2 = sub(b2,[1,1])
+ 
+    #while (20*y*int(b)) + int(b)*int(b) > x:
+    #    b = b - 1
+
+    #assert b == arrayToInt(b2),arrayToInt(b2)
+
+    return(arrayToInt(b2))
+    #return (int(b))
 
 # Calculates the root of number a and returns it as text
 # the parameter decimalPlaces defines how many decimal places after the comma
 # should be calculated.
 
-def root(a, decimalPlaces):
+def root(a, decimalPlaces, debug = False):
 
-    
     outputString = ""
     if a > 0:   
         aSplit = splitNumber(a)
@@ -76,6 +88,10 @@ def root(a, decimalPlaces):
         totalPlaces = decimalPlaces +  len(aSplit) -1  
 
         while x+1 <= (totalPlaces):
+
+            if debug == True:
+                if x%100 == 0:
+                    print(int((x/100)%10),end="")
 
             if lenA > 1:
                 c1 = c1 + aSplit[x+1]

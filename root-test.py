@@ -1,5 +1,9 @@
 from root import *
+from root2reference import *
 import time
+import matplotlib.pyplot as plt    # call 'pip install matplotlib'
+
+
 
 #############################################################
 #
@@ -7,17 +11,20 @@ import time
 #
 #############################################################
 
-rootOf2 = "1,414213562373095048801688724209698078569671875376948073176679737990732478462107038850387534327641572735013846230912297024924836055850737212644121497099935831413222665927505592755799950501152782060571470109559971605970274534596862014728517418640889198609552329230484308714321450839762603627995251407989687253396546331808829640620615258352395054745750287759961729835575220337531857011354374603408498847160386899970699004815030544027790316454247823068492936918"
-
-x = root(2,0);                              assert rootOf2.startswith(x) == True,x
-x = root(2,1);                              assert rootOf2.startswith(x) == True,x
-x = root(2,50);                             assert rootOf2.startswith(x) == True,x
-x = root(2,100);                            assert rootOf2.startswith(x) == True,x
-x = root(2,150);                            assert rootOf2.startswith(x) == True,x
-x = root(2,200);                            assert rootOf2.startswith(x) == True,x
-x = root(2,250);                            assert rootOf2.startswith(x) == True,x
-x = root(2,300);                            assert rootOf2.startswith(x) == True,x
-x = root(2,307);                            assert rootOf2.startswith(x) == True,x
+def rootTest(a, decimalPlaces):
+    print("Calculate rot of " + str(a) + " with " + str(decimalPlaces) + " decimal places")
+    x = root(a,decimalPlaces)
+    assert rootOf2.startswith(x) == True,x
+    
+x = rootTest(2,0)
+x = rootTest(2,1)
+x = rootTest(2,50)
+x = rootTest(2,100)
+x = rootTest(2,150)
+x = rootTest(2,200)
+x = rootTest(2,250)
+x = rootTest(2,300)
+x = rootTest(2,1000)
 
 #############################################################
 #
@@ -25,14 +32,21 @@ x = root(2,307);                            assert rootOf2.startswith(x) == True
 #
 #############################################################
 
-def timeTest(decimals, iterations=100):
+chartDecimals = []
+chartSecs = []
+
+def timeTest(decimals, iterations=10):
     tStart = time.time()
 
     for i in range(iterations):
         x = root(2,decimals)
 
     tEnd = time.time()
-    print(str(decimals) + " decimal places: " + str((tEnd-tStart)/iterations*1000) + " ms")
+    tCalc = (tEnd-tStart)/iterations*1000
+    chartSecs.append(tCalc)
+    chartDecimals.append(decimals)
+
+    print(str(decimals) + " decimal places: " + str(tCalc) + " ms")
 
 timeTest(0)
 timeTest(50)
@@ -41,6 +55,14 @@ timeTest(150)
 timeTest(200)
 timeTest(250)
 timeTest(300)
+timeTest(600,1)
+timeTest(1200,1)
+timeTest(2000,1)
+timeTest(3000,1)
+timeTest(4200,1)
+
+plt.plot(chartDecimals,chartSecs)
+plt.show()
 
 #############################################################
 #

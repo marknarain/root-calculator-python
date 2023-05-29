@@ -1,0 +1,17 @@
+Benchmark
+
+    Lenovo C340 Intel Core I5 10th Gen
+
+        0 decimal places: 0.0 ms
+        50 decimal places: 12.687969207763672 ms
+        100 decimal places: 39.42975997924805 ms
+        150 decimal places: 83.29000473022461 ms
+        200 decimal places: 161.29705905914307 ms
+        250 decimal places: 239.13321495056152 ms
+        300 decimal places: 329.65338230133057 ms
+        600 decimal places: 1392.993450164795 ms
+        1200 decimal places: 5916.266918182373 ms
+        2000 decimal places: 18604.34603691101 ms
+        3000 decimal places: 45220.58653831482 ms
+        4200 decimal places: 100289.25657272339 ms
+

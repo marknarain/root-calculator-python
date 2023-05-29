@@ -26,13 +26,16 @@ while outputDigitsState == False:
     outputDigits = input(outputDigitsPromt)
 
     if outputDigits.isnumeric() == True:
+        
+        outputDigits = int(outputDigits)
+        outputDigitsState = True
 
-        if int(outputDigits) <= (309-2*len(splitNumber(int(inputNumber)))):
+        if int(outputDigits) <= (4200-2*len(splitNumber(int(inputNumber)))):
             outputDigits = int(outputDigits)
             outputDigitsState = True
         else:
             digitsToBigOut = "The number of decimal places is bigger than {}"
-            digitsToBigOut = digitsToBigOut.format((309-2*len(splitNumber(int(inputNumber)))))
+            digitsToBigOut = digitsToBigOut.format((4200-2*len(splitNumber(int(inputNumber)))))
             print(digitsToBigOut)
 
     elif outputDigits == "":
@@ -47,7 +50,7 @@ while outputDigitsState == False:
 
 
 
-outText = root(inputNumber, outputDigits)
+outText = root(inputNumber, outputDigits, True)
 
 if outText == "":
     outText = "This function isn't avalible yet!"
