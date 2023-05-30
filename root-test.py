@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt    # call 'pip install matplotlib'
 #############################################################
 
 def rootTest(a, decimalPlaces):
-    print("Calculate rot of " + str(a) + " with " + str(decimalPlaces) + " decimal places")
+    print("Calculate root of " + str(a) + " with " + str(decimalPlaces) + " decimal places")
     x = root(a,decimalPlaces)
     assert rootOf2.startswith(x) == True,x
     

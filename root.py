@@ -1,5 +1,5 @@
 import math
-from calc import *
+from bignumber import *
 
 # Splits the entered number into pairs of two digits.
 # x = 1234 --> [12, 34]
@@ -51,19 +51,26 @@ def rootDigitCalculator(x, y):
 
     b = int(x / (20*y))
     
-    x2 = cnv(x)
-    y2 = cnv(y)
-    b2 = cnv(b)
+    x2 = BigNumber(x)
 
-    while cmp(add((mul(mul(y2,b2),cnv(20))),mul(b2,b2)),x2) == 1:
-        b2 = sub(b2,[1,1])
+    y2 = BigNumber(y)
+
+    b2 = BigNumber(b)
+
+    a = BigNumber(20)
+
+    while (a*y2*b2 + b2*b2) > x2:
+        b2 = b2 - BigNumber(1)
+
+    #while cmp(add((mul(mul(y2,b2),cnv(20))),mul(b2,b2)),x2) == 1:
+    #    b2 = sub(b2,[1,1])
  
     #while (20*y*int(b)) + int(b)*int(b) > x:
     #    b = b - 1
 
     #assert b == arrayToInt(b2),arrayToInt(b2)
 
-    return(arrayToInt(b2))
+    return(arrayToInt(b2.data))
     #return (int(b))
 
 # Calculates the root of number a and returns it as text

@@ -1,5 +1,16 @@
-from calc import *
+from bignumber import *
 import time
+
+#############################################################
+#
+# test results of cnv()
+#
+#############################################################
+
+x = BigNumber(1234567);                     assert x.data == [1,1,2,3,4,5,6,7],x
+x = BigNumber(-1234567);                    assert x.data == [-1,1,2,3,4,5,6,7],x
+x = BigNumber(0);                           assert x.data == [1,0],x
+x = BigNumber(20);                          assert x.data == [1,2,0],x
 
 #############################################################
 #
@@ -7,48 +18,50 @@ import time
 #
 #############################################################
 
-x = cmp([1,0],[1,0]);                       assert x == 0,x
-x = cmp([-1,0],[-1,0]);                     assert x == 0,x
-x = cmp([1,1,2,3,4,5,6],[1,1,2,3,4,5,6]);   assert x == 0,x
-x = cmp([1,0,0,0,1],[1,0,0,0,1]);           assert x == 0,x
-x = cmp([1,2,3,4,5,1,2],[1,2,3,4,5,1,2]);   assert x == 0,x
-x = cmp([1,8,3,5,2,5,2,8,3],[1,8,3,5,2,5,2,8,3]);       assert x == 0,x
+x = BigNumber(0) == BigNumber(0);           assert x == True
 
-x = cmp([1,5],[1,0]);                       assert x == 1,x
-x = cmp([1,9,9,9],[1,2,3,4]);               assert x == 1,x
-x = cmp([1,1,2,3,4,5,6],[1,2,3,4]);         assert x == 1,x
-x = cmp([1,1,2,3],[-1,1,2,3]);              assert x == 1,x
-x = cmp([1,1,2,4],[-1,1,2,3]);              assert x == 1,x
-x = cmp([1,1,2,3],[-1,1,2,4]);              assert x == 1,x
-x = cmp([-1,2,3,4],[-1,4,5,6]);             assert x == 1,x
-x = cmp([-1,5],[-1,6]);                     assert x == 1,x
 
-x = cmp([1,0],[1,5]);                       assert x == -1,x
-x = cmp([1,1,2,3],[1,2,3,4]);               assert x == -1,x
-x = cmp([1,2,3,4],[1,1,2,3,4,5,6]);         assert x == -1,x   
-x = cmp([-1,1,2,3],[1,1,2,3]);              assert x == -1,x
-x = cmp([-1,1,2,4],[1,1,2,3]);              assert x == -1,x
-x = cmp([-1,1,2,3],[1,1,2,4]);              assert x == -1,x
-x = cmp([-1,4,5,7],[-1,4,5,6]); 	        assert x == -1,x
-x = cmp([-1,1,2,3,4,5,6],[-1,2,3,4,5]);     assert x == -1,x
+x = BigNumber(-0) == BigNumber(-0);         assert x == True
+x = BigNumber(123456) == BigNumber(123456); assert x == True
+x = BigNumber(1) == BigNumber(1);           assert x == True
+x = BigNumber(234512) == BigNumber(234512); assert x == True
+x = BigNumber(83525283) == BigNumber(83525283);      assert x == True
+
+x = BigNumber(5) > BigNumber(0);            assert x == True
+x = BigNumber(999) > BigNumber(234);        assert x == True
+x = BigNumber(123456) > BigNumber(234);     assert x == True
+x = BigNumber(123) > BigNumber(-123);       assert x == True
+x = BigNumber(124) > BigNumber(-123);       assert x == True
+x = BigNumber(123) > BigNumber(-124);       assert x == True
+x = BigNumber(-234) > BigNumber(-456);      assert x == True
+x = BigNumber(-5) > BigNumber(-6);          assert x == True
+
+x = BigNumber(0) < BigNumber(5);            assert x == True
+x = BigNumber(234) < BigNumber(999);        assert x == True
+x = BigNumber(234) < BigNumber(123456);     assert x == True 
+x = BigNumber(-123) < BigNumber(123);       assert x == True
+x = BigNumber(-123) < BigNumber(124);       assert x == True
+x = BigNumber(-124) < BigNumber(123);       assert x == True
+x = BigNumber(-456) < BigNumber(-234);      assert x == True
+x = BigNumber(-6) < BigNumber(-5);          assert x == True
 
 a = [8] * 1000000
 b = [8] * 1000000
 a[0] = 1
 b[0] = 1
-x = cmp(a,b);                               assert x == 0,x
+x = a == b;                                 assert x == True
 
 a[999] = 0
 b[999] = 1
-x = cmp(a,b);                               assert x == -1,x
+x = a < b;                                  assert x == True
 
 a[999] = 1
 b[999] = 0
-x = cmp(a,b);                               assert x == 1,x
+x = a > b;                                  assert x == True
 
 a = [1,2,3]*1000
 b = [1,2,4]*1000
-x = cmp(a,b);                               assert x == -1,x
+x = a < b;                                  assert x == True
 
 #############################################################
 #
@@ -82,15 +95,15 @@ print("Comparing 3000 digits: " + str(tEnd-tStart) + " sec")
 #
 #############################################################
 
-x = add([1,1],[1,1]);                       assert x == [1,2],x
-x = add([-1,9],[1,9]);                      assert x == [1,0],x
-x = add([1,1,2],[1,2,9]);                   assert x == [1,4,1],x
-x = add([1,1,2,3],[1,2,9,4]);               assert x == [1,4,1,7],x
+x = BigNumber(1) + BigNumber(1);            assert x.data == [1,2],x
+x = BigNumber(-9) + BigNumber(9);           assert x.data == [1,0],x
+x = BigNumber(12) + BigNumber(29);          assert x.data == [1,4,1],x
+x = BigNumber(123) + BigNumber(294);        assert x.data == [1,4,1,7],x
 
-x = add([-1,1],[1,1]);                      assert x == [1,0],x
-x = add([-1,9],[-1,9]);                     assert x == [-1,1,8],x
-x = add([-1,1,2],[1,2,9]);                  assert x == [1,1,7],x
-x = add([-1,1,2,3],[1,2,9,4]);              assert x == [1,1,7,1],x
+x = BigNumber(-1) + BigNumber(1);           assert x.data == [1,0],x
+x = BigNumber(-9) + BigNumber(-9);          assert x.data == [-1,1,8],x
+x = BigNumber(-12) + BigNumber(29);         assert x.data == [1,1,7],x
+x = BigNumber(123) + BigNumber(294);        assert x.data == [1,1,7,1],x
 
 #############################################################
 #
@@ -190,16 +203,6 @@ x = div([1,1,0,0],[1,1,0,0]);               assert x == [1,1],x
 x = div([1,1,0,0],[1,1,0]);                 assert x == [1,1,0],x
 x = div([-1,1,2,3],[1,1,0]);                assert x == [-1,1,2],x
 
-#############################################################
-#
-# test results of cnv()
-#
-#############################################################
-
-x = cnv(1234567);                           assert x == [1,1,2,3,4,5,6,7],x
-x = cnv(-1234567);                          assert x == [-1,1,2,3,4,5,6,7],x
-x = cnv(0);                                 assert x == [1,0],x
-x = cnv(20);                                assert x == [1,2,0],x
 #############################################################
 #
 # test results of cnvString()

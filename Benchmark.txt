@@ -1,6 +1,6 @@
 Benchmark
 
-    Lenovo C340 Intel Core I5 10th Gen
+    Lenovo Ideapad C340, Intel Core I5 10th Gen
 
         0 decimal places: 0.0 ms
         50 decimal places: 12.687969207763672 ms
@@ -15,3 +15,32 @@ Benchmark
         3000 decimal places: 45220.58653831482 ms
         4200 decimal places: 100289.25657272339 ms
 
+    Acer Predator PO3-630, Intel Core I7 11th Gen
+
+        0 decimal places: 0.0 ms
+        50 decimal places: 7.864403724670409 ms
+        100 decimal places: 23.677778244018555 ms
+        150 decimal places: 51.67715549468994 ms
+        200 decimal places: 90.68300724029541 ms
+        250 decimal places: 138.40835094451904 ms
+        300 decimal places: 200.87952613830566 ms
+        600 decimal places: 859.0524196624756 ms
+        1200 decimal places: 3659.72638130188 ms
+        2000 decimal places: 11360.24808883667 ms
+        3000 decimal places: 27756.616353988647 ms
+        4200 decimal places: 60328.83906364441 ms
+
+    Lenovo Thinkpad, Intel Core I7 10th Gen
+
+        0 decimal places: 0.0 s
+        50 decimal places: 0.012 s
+        100 decimal places: 0.041 s
+        150 decimal places: 0.087 s
+        200 decimal places: 0.151 s
+        250 decimal places: 0.23 s
+        300 decimal places: 0.337 s
+        600 decimal places: 1.384 s
+        1200 decimal places: 5.783 s
+        2000 decimal places: 18.897 s
+        3000 decimal places: 45.786 s
+        4200 decimal places: 101.872 s

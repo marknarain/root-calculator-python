@@ -22,7 +22,7 @@ outputDigitsState = False
 while outputDigitsState == False:
 
     outputDigitsPromt = "How many decimal places do you want to see (maximum {}): "
-    outputDigitsPromt = outputDigitsPromt.format(309-2*len(splitNumber(int(inputNumber))))
+    outputDigitsPromt = outputDigitsPromt.format(4200-2*len(splitNumber(int(inputNumber))))
     outputDigits = input(outputDigitsPromt)
 
     if outputDigits.isnumeric() == True:
@@ -47,6 +47,7 @@ while outputDigitsState == False:
 
     else:
         print("Your input was invalid")
+
 
 
 

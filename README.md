@@ -12,6 +12,11 @@ This root claculator uses the [Shifting nth root algorithm](https://en.wikipedia
 ---
 
 - Python 3.10
+- matplotlib for time testing graph (root-test.py):
+
+    ```sh
+    $ pip install matplotlib
+    ```
 
 ## Links
 ---
