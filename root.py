@@ -70,8 +70,8 @@ def rootDigitCalculator(x, y):
 
     #assert b == arrayToInt(b2),arrayToInt(b2)
 
-    return(arrayToInt(b2.data))
-    #return (int(b))
+    #return(arrayToInt(b2.data))
+    return (int(b2))
 
 # Calculates the root of number a and returns it as text
 # the parameter decimalPlaces defines how many decimal places after the comma

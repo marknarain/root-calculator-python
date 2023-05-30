@@ -46,7 +46,8 @@ def timeTest(decimals, iterations=10):
     chartSecs.append(tCalc)
     chartDecimals.append(decimals)
 
-    print(str(decimals) + " decimal places: " + str(tCalc) + " ms")
+    print(str(decimals) + " decimal places: " + str(int(tCalc)/1000) + " s")
+
 
 timeTest(0)
 timeTest(50)
