@@ -21,8 +21,8 @@ outputDigitsState = False
 
 while outputDigitsState == False:
 
-    outputDigitsPromt = "How many decimal places do you want to see (maximum {}): "
-    outputDigitsPromt = outputDigitsPromt.format(4200-2*len(splitNumber(int(inputNumber))))
+    outputDigitsPromt = "How many decimal places do you want to see: "  #(maximum {})
+    #outputDigitsPromt = outputDigitsPromt.format(4200-2*len(splitNumber(int(inputNumber))))
     outputDigits = input(outputDigitsPromt)
 
     if outputDigits.isnumeric() == True:
@@ -30,13 +30,13 @@ while outputDigitsState == False:
         outputDigits = int(outputDigits)
         outputDigitsState = True
 
-        if int(outputDigits) <= (4200-2*len(splitNumber(int(inputNumber)))):
-            outputDigits = int(outputDigits)
-            outputDigitsState = True
-        else:
-            digitsToBigOut = "The number of decimal places is bigger than {}"
-            digitsToBigOut = digitsToBigOut.format((4200-2*len(splitNumber(int(inputNumber)))))
-            print(digitsToBigOut)
+        #if int(outputDigits) <= (4200-2*len(splitNumber(int(inputNumber)))):
+        #    outputDigits = int(outputDigits)
+        #    outputDigitsState = True
+        #else:
+        #    digitsToBigOut = "The number of decimal places is bigger than {}"
+        #    digitsToBigOut = digitsToBigOut.format((4200-2*len(splitNumber(int(inputNumber)))))
+        #    print(digitsToBigOut)
 
     elif outputDigits == "":
         confirm = input("Your input was empty, please confirm if you want to continue with 0 decimal places (Y): ")

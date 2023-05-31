@@ -1,23 +1,29 @@
 class BigNumber():
 
     data = []
+    packLength = 10**5000
 
     def __init__(self,value):
         if type(value) is int:
-            
-            positiveX = value
-            
+            packs = []
+            negative = False
             if value < 0:
-                positiveX = positiveX * (-1)
-            output = [int(i) for i in str(positiveX)]
-            
-            if value >= 0:
-                output.insert(0,1)
-            
+                packs.append(-1)
+                value = value*(-1)
+                negative = True
             else:
-                output.insert(0,-1)
+                packs.append(1)
+            while value != 0:
+                modNum = value % self.packLength
+                packs.insert(1, modNum)
+                value = (value - modNum) // self.packLength
+
+            if negative == True:
+                value = value*(-1)
             
-            self.data = output
+            if packs == [1]:
+                packs = [1,0]
+            self.data = packs
 
         else:
             self.data = value
@@ -25,11 +31,11 @@ class BigNumber():
     def __add__(self,other):
 
         newObject = BigNumber(0)
-      
+        
         output = []
         carryOnNum = 0
         whileCounter = 1
-    
+
         if self.data[0] == -1 and other.data[0] == 1:
             output2 = other + self
             output = output2.data
@@ -40,7 +46,7 @@ class BigNumber():
             output2 = self + other
             output2.data[0] = -1
             output = output2.data
-    
+
         else: 
             output.insert(0,1)
 
@@ -78,7 +84,7 @@ class BigNumber():
 
                 else:
                     digit = self.data[len(self.data)-whileCounter] + other.data[len(other.data)-whileCounter] + carryOnNum
-                    if digit > 9:
+                    if digit > (self.packLength-1):
                         carryOnNum = int((digit - digit % 10)/10)
                         digit = digit % 10
                         output.insert(1, digit)
@@ -154,16 +160,16 @@ class BigNumber():
         carryOnNum = 0
         whileCounter1 = 1
         whileCounter2 = 1    
-        output = [1,0]
-        mullAdd = [1]
+        output = BigNumber(0)
+        mullAdd = BigNumber([1])
 
         if len(x) == 2 and len(y) > len(x):
-            output = BigNumber.__mul(y,x)
+            output.data = BigNumber.__mul(y,x)
 
         elif y[len(y)-1] == 0:
             y.pop()
-            output = BigNumber.__mul(x,y)
-            output.append(0)
+            output.data = BigNumber.__mul(x,y)
+            output.data.append(0)
         
         else:
 
@@ -171,34 +177,32 @@ class BigNumber():
 
                 while ((len(x)-1) - whileCounter2) >= 0:
                     digit = y[1] * x[len(x)-whileCounter2] + carryOnNum
-                    carryOnNum = int(digit/10)
-                    mullAdd.insert(1,digit%10)
+                    carryOnNum = int(digit / BigNumber.packLength)
+                    mullAdd.data.insert(1,digit % BigNumber.packLength)
                     whileCounter2 = whileCounter2 + 1
                 
-                output1 = BigNumber(output)
-                mullAdd1 = BigNumber(mullAdd)
-                output = (output1 + mullAdd1).data
+                output = output + mullAdd
 
-                while len(output) < len(mullAdd):
-                    output.insert(1,0)
+                while len(output.data) < len(mullAdd.data):
+                    output.data.insert(1,0)
 
                 #if ((len(y)-1) - whileCounter1) != 0:
                 #    output.append(0)
 
                 if ((len(y)-1) - whileCounter1) <= 0:
-                    output.insert(1,carryOnNum)
+                    output.data.insert(1,carryOnNum)
                     break
                 
                 whileCounter1 = whileCounter1 + 1
 
             if x[0] != y[0]:
-                output[0] = -1
+                output.data[0] = -1
         
-        if len(output) > 2:
-            while output[1] == 0 and len(output) > 2:
-                output.pop(1)
+        if len(output.data) > 2:
+            while output.data[1] == 0 and len(output.data) > 2:
+                output.data.pop(1)
 
-        return(output)
+        return(output.data)
     
     def __gt__(self, other):
 
@@ -231,30 +235,26 @@ class BigNumber():
 
     def __floordiv__(self,other):
 
-        newObject = BigNumber(0)
-
-        if other.data == [1,1,0]:
-            self.data.pop()
-            output = self.data 
-        elif other.data == [1,1,0,0]:
-            self.data.pop()
-            self.data.pop()
-            output = self.data
-        else:
+        lenSelfData = len(self.data) - 1
+        
+        if other.data != [1,10] and other.data != [1,100]:
             assert False , "Not yet Avalible"
 
-        if output == [1]:
-            output.insert(1,0)
+        for i in range(lenSelfData):
+            self.data[lenSelfData-i] = self.data[lenSelfData] // other.data[1]
+            if lenSelfData != 1:
+                self.data[lenSelfData-i] += (self.data[lenSelfData-i-1] % 10)*(self.packLength / 10)
 
-        newObject.data = output
+        if self.data == [1]:
+            self.data.insert(1,0)
 
-        return newObject
+        return self
     
     def __int__(self):
         output = 0
 
         for i in self.data[1:]:
-            output = output*10+i
+            output = output * 10000+i
 
         return output*self.data[0]
 

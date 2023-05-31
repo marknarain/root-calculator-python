@@ -97,6 +97,7 @@ def root(a, decimalPlaces, debug = False):
         while x+1 <= (totalPlaces):
 
             if debug == True:
+                
                 if x%100 == 0:
                     print(int((x/100)%10),end="")
 

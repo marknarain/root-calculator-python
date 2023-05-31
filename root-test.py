@@ -25,6 +25,7 @@ x = rootTest(2,200)
 x = rootTest(2,250)
 x = rootTest(2,300)
 x = rootTest(2,1000)
+x = rootTest(2,5000)
 
 #############################################################
 #
@@ -40,11 +41,13 @@ def timeTest(decimals, iterations=10):
 
     for i in range(iterations):
         x = root(2,decimals)
-
+    
     tEnd = time.time()
     tCalc = (tEnd-tStart)/iterations*1000
     chartSecs.append(tCalc)
     chartDecimals.append(decimals)
+
+    assert rootOf2.startswith(x) == True,x
 
     print(str(decimals) + " decimal places: " + str(int(tCalc)/1000) + " s")
 
@@ -56,11 +59,11 @@ timeTest(150)
 timeTest(200)
 timeTest(250)
 timeTest(300)
-timeTest(600,1)
-timeTest(1200,1)
-timeTest(2000,1)
-timeTest(3000,1)
-timeTest(4200,1)
+timeTest(600)
+timeTest(1200)
+timeTest(2000)
+timeTest(3000)
+timeTest(4200)
 
 plt.plot(chartDecimals,chartSecs)
 plt.show()
