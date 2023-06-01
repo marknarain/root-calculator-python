@@ -21,19 +21,13 @@ outputDigitsState = False
 
 while outputDigitsState == False:
 
-    outputDigitsPromt = "How many decimal places do you want to see (maximum {}): "
-    outputDigitsPromt = outputDigitsPromt.format(309-2*len(splitNumber(int(inputNumber))))
+    outputDigitsPromt = "How many decimal places do you want to see: "
     outputDigits = input(outputDigitsPromt)
 
     if outputDigits.isnumeric() == True:
 
-        if int(outputDigits) <= (309-2*len(splitNumber(int(inputNumber)))):
-            outputDigits = int(outputDigits)
-            outputDigitsState = True
-        else:
-            digitsToBigOut = "The number of decimal places is bigger than {}"
-            digitsToBigOut = digitsToBigOut.format((309-2*len(splitNumber(int(inputNumber)))))
-            print(digitsToBigOut)
+        outputDigits = int(outputDigits)
+        outputDigitsState = True
 
     elif outputDigits == "":
         confirm = input("Your input was empty, please confirm if you want to continue with 0 decimal places (Y): ")
@@ -49,11 +43,14 @@ while outputDigitsState == False:
 
 outText = root(inputNumber, outputDigits)
 
+f = open("output.txt", 'w')
+f.write(outText)
+f.close()
+
 if outText == "":
     outText = "This function isn't avalible yet!"
 
 else:
     outText = "The sqrt() of " + str(inputNumber) + " (" + str(outputDigits) + " decimal places) is: " + str(outText)
-
 
 print(outText)
