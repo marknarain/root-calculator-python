@@ -20,6 +20,9 @@ This root claculator uses the [Shifting nth root algorithm](https://en.wikipedia
 
 ## Links
 ---
+Reference for testing of the sqrt(2):
+[Nemiroff and Bonell](https://apod.nasa.gov/htmltest/rjn_dig.html)
+
 Home page: [marknarain.com](https://marknarain.com)
 
 Shifting nth root algorithm: [Wikipedia](https://en.wikipedia.org/wiki/Shifting_nth_root_algorithm)

@@ -41,7 +41,7 @@ while outputDigitsState == False:
 
 
 
-outText = root(inputNumber, outputDigits)
+outText = root(inputNumber, outputDigits, False)
 
 f = open("output.txt", 'w')
 f.write(outText)

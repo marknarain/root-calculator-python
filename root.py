@@ -1,3 +1,7 @@
+import time
+import keyboard     # call pip install keyboard
+import matplotlib.pyplot as plt    # call 'pip install matplotlib'
+
 # Splits the entered number into pairs of two digits.
 # x = 1234 --> [12, 34]
 # x = 123  --> [1, 23]
@@ -11,10 +15,12 @@ def splitNumber(x):
 
     while x > 0:
         
-        output[0] = x % 100
-        x = (x - output[0]) / 100     
+        output[0] = x %100
+        x = (x - output[0]) /100     
+        
         if x == 0:
             break
+
         output.insert(0, 0)
 
     return(output)
@@ -27,6 +33,7 @@ def splitNumber(x):
 
 def rootOfFirstItem(x):
     y = 9
+
     while x < (y**2):
         y = y - 1
 
@@ -35,6 +42,7 @@ def rootOfFirstItem(x):
 # Subtracts the square of the first found Digit from the entered number
 
 def firstStepSquareMinus(x, y):
+    
     output = x - y**2
 
     return(output)
@@ -44,7 +52,7 @@ def firstStepSquareMinus(x, y):
 
 def rootDigitCalculator(x, y):
 
-    a = y*20
+    a = y *20
     b = x // a
     a += b
     
@@ -58,8 +66,22 @@ def rootDigitCalculator(x, y):
 # the parameter decimalPlaces defines how many decimal places after the comma
 # should be calculated.
 
-def root(a, decimalPlaces):
+keyPressed = False
+graphArrayX = []
+graphArrayY = []
+
+def root(a, decimalPlaces, debug = False):
     
+    global keyPressed
+    
+    def on_key_event(event):
+        # Process the key event
+        global keyPressed
+        keyPressed = True
+
+    if debug == True:
+        keyboard.on_press(on_key_event)
+
     if a == 0:
         return "0"
 
@@ -67,20 +89,37 @@ def root(a, decimalPlaces):
         assert False, "negative numbers not allowed!!!"
 
     outputString = ""
-     
+    
     aSplit = splitNumber(a)
     b = rootOfFirstItem(aSplit[0])
     outputString = outputString + str(b)
-    c1 = firstStepSquareMinus(aSplit[0], b)*100
+    c1 = firstStepSquareMinus(aSplit[0], b) *100
 
     d1 = 0
     lenA = len(aSplit)
     first = 1
     
     #-1 bacuse 1st digit is already calculated with rootOfFirstItem()
-    x = decimalPlaces + lenA -1  
+    x = decimalPlaces + lenA -1
+    startX = x
 
+    tStart = int(time.time())
+    tNext = tStart +10
+    
     while x > 0:
+     
+        if debug == True:
+            
+            if keyPressed == True:
+                x = 0
+            
+            if time.time() > tNext:
+                print("In " + str(tNext - tStart) + " seconds : " + str(startX - x) + " digits calculated")
+                
+                graphArrayY.append(tNext - tStart)
+                graphArrayX.append(startX - x)
+
+                tNext += 10
 
         x -= 1
 
@@ -100,7 +139,12 @@ def root(a, decimalPlaces):
         outputString = outputString + str(d1)
 
         c1 = (c1 - ((20 * b + d1) * d1)) *100
+        
         if c1 == 0:
             break
 
+    plt.plot(graphArrayX,graphArrayY)
+    plt.show()
+    keyboard.unhook_all()
+    
     return outputString[:lenA] + "," + outputString[lenA:]
