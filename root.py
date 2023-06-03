@@ -70,7 +70,7 @@ keyPressed = False
 graphArrayX = []
 graphArrayY = []
 
-def root(a, decimalPlaces, debug = False):
+def root(a, decimalPlaces, debug = False, outputFile = ""):
     
     global keyPressed
     
@@ -106,6 +106,8 @@ def root(a, decimalPlaces, debug = False):
     tStart = int(time.time())
     tNext = tStart +10
     
+    fileMode = 'w'
+
     while x > 0:
      
         if debug == True:
@@ -113,13 +115,28 @@ def root(a, decimalPlaces, debug = False):
             if keyPressed == True:
                 x = 0
             
-            if time.time() > tNext:
+        if time.time() > tNext:
+            if outputFile != "":
+                f = open(outputFile + ".info.txt", fileMode)
+                f.write("In " + str(tNext - tStart) + " seconds : " + str(startX - x) + " digits calculated\n")
+                f.close()
+                
+                f = open(outputFile + ".txt", fileMode)
+                if fileMode == 'w':
+                    outputString = outputString[:lenA] + "," + outputString[lenA:]
+                f.write(outputString)
+                outputString = ""
+                f.close()
+
+                fileMode = 'a'
+            
+            if debug == True:
                 print("In " + str(tNext - tStart) + " seconds : " + str(startX - x) + " digits calculated")
                 
                 graphArrayY.append(tNext - tStart)
                 graphArrayX.append(startX - x)
 
-                tNext += 10
+            tNext += 10
 
         x -= 1
 
@@ -143,8 +160,9 @@ def root(a, decimalPlaces, debug = False):
         if c1 == 0:
             break
 
-    plt.plot(graphArrayX,graphArrayY)
-    plt.show()
-    keyboard.unhook_all()
+    if debug == True:
+        plt.plot(graphArrayX,graphArrayY)
+        plt.show()
+        keyboard.unhook_all()
     
     return outputString[:lenA] + "," + outputString[lenA:]

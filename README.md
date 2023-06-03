@@ -8,6 +8,8 @@ By Mark Narain Enzinger
 
 This root claculator uses the [Shifting nth root algorithm](https://en.wikipedia.org/wiki/Shifting_nth_root_algorithm) to calculate the square root of a number by calculating each of its decimal places one after the other. 
 
+The calculator can calculate millions of digits of a square root. The result is saved into a txt file named output.txt.
+
 ## Requirements
 ---
 
