@@ -73,7 +73,11 @@ graphArrayY = []
 def root(a, decimalPlaces, debug = False, outputFile = ""):
     
     global keyPressed
-    
+    f = open(outputFile + ".info.txt", 'w')
+    f.write("")
+    f.close()
+
+
     def on_key_event(event):
         # Process the key event
         global keyPressed
@@ -106,7 +110,8 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
     tStart = int(time.time())
     tNext = tStart +10
     
-    fileMode = 'w'
+    tenSecs = False
+    firstWrite = 1
 
     while x > 0:
      
@@ -117,18 +122,19 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
             
         if time.time() > tNext:
             if outputFile != "":
-                f = open(outputFile + ".info.txt", fileMode)
+                f = open(outputFile + ".info.txt", 'a')
                 f.write("In " + str(tNext - tStart) + " seconds : " + str(startX - x) + " digits calculated\n")
                 f.close()
                 
-                f = open(outputFile + ".txt", fileMode)
-                if fileMode == 'w':
+                f = open(outputFile + ".txt", 'a')
+                
+                if firstWrite == 1:
                     outputString = outputString[:lenA] + "," + outputString[lenA:]
+                    firstWrite == 0
+
                 f.write(outputString)
                 outputString = ""
                 f.close()
-
-                fileMode = 'a'
             
             if debug == True:
                 print("In " + str(tNext - tStart) + " seconds : " + str(startX - x) + " digits calculated")
@@ -137,6 +143,7 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
                 graphArrayX.append(startX - x)
 
             tNext += 10
+            tenSecs = True
 
         x -= 1
 
@@ -153,7 +160,7 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
         
         d1 = rootDigitCalculator(c1, b)
 
-        outputString = outputString + str(d1)
+        outputString += str(d1)
 
         c1 = (c1 - ((20 * b + d1) * d1)) *100
         
@@ -165,4 +172,14 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
         plt.show()
         keyboard.unhook_all()
     
-    return outputString[:lenA] + "," + outputString[lenA:]
+    if outputFile != "" and tenSecs == True:
+        f = open(outputFile + ".txt", "a")
+        f.write(outputString)
+        f.close()
+        return ""
+    
+    else:
+        f = open(outputFile + ".txt", "w")
+        f.write(outputString)
+        f.close()
+        return outputString[:lenA] + "," + outputString[lenA:]

@@ -43,14 +43,6 @@ while outputDigitsState == False:
 
 outText = root(inputNumber, outputDigits, True, "output")
 
-f = open("output.txt", 'w')
-f.write(outText)
-f.close()
-
-if outText == "":
-    outText = "This function isn't avalible yet!"
-
-else:
-    outText = "The sqrt() of " + str(inputNumber) + " (" + str(outputDigits) + " decimal places) is: " + str(outText)
+outText = "The sqrt() of " + str(inputNumber) + " (" + str(outputDigits) + " decimal places) is: " + str(outText)
 
 print(outText)
