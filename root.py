@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt    # call 'pip install matplotlib'
 # x = 123  --> [1, 23]
 # x = 7    --> [7]
 # The lenght of the resulting array == number of integer 
-# digits of the square root of x
+# digits of the square root of x 
  
 def splitNumber(x):
 
@@ -76,15 +76,18 @@ def root(a, decimalPlaces, debug = False, outputFile = ""):
     f = open(outputFile + ".info.txt", 'w')
     f.write("")
     f.close()
+    f = open(outputFile + ".txt", 'w')
+    f.write("")
+    f.close()
 
 
-    def on_key_event(event):
+    def on_key_event(key):
         # Process the key event
         global keyPressed
         keyPressed = True
 
     if debug == True:
-        keyboard.on_press(on_key_event)
+        keyboard.on_press_key("esc", on_key_event)
 
     if a == 0:
         return "0"

@@ -10,6 +10,8 @@ This root claculator uses the [Shifting nth root algorithm](https://en.wikipedia
 
 The calculator can calculate millions of digits of a square root. The result is saved into a txt file named output.txt.
 
+Untill now, 32'805'552 digits have been computed with this program.
+
 ## Requirements
 ---
 
